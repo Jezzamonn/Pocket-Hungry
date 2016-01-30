@@ -35,11 +35,15 @@ public class Main : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        trail.MovePlayer();
-        trail.UpdateDistance();
-        trail.UpdateFollowers();
+        trail.TotalUpdate();
         player.CheckFood();
         UpdateCamera();
+
+        if (Input.GetButtonDown("Test"))
+        {
+            int index = Random.Range(0, trail.followers.Count);
+            trail.followers.RemoveAt(index);
+        }
     }
 
     void UpdateCamera()
