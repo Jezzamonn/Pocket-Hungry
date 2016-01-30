@@ -26,7 +26,7 @@ public class Main : MonoBehaviour {
                 pos = Random.insideUnitCircle;
             }
             while (pos.sqrMagnitude < 0.5f);
-            Vector3 pos3d = 10 * new Vector3(pos.x, 0, pos.y);
+            Vector3 pos3d = 50 * new Vector3(pos.x, 0, pos.y);
 
             Transform newFood = (Transform)Instantiate(foodPrefab, pos3d, Quaternion.identity);
             foods.Add(newFood);

@@ -17,7 +17,7 @@ namespace Assets.code
         public float pointGap = 0.1f;
         public float zipSpeed = 0.5f;
         public float curZipSpeed = 0f;
-        public float followerDist = 1.5f;
+        public float followerDist = 2.5f;
         public bool locked = false;
 
         public int maxLength = 100;

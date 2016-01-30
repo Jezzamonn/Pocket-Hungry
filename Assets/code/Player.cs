@@ -55,10 +55,8 @@ namespace Assets.code
 
         void OnCollisionEnter(Collision collision)
         {
-            if (pullFood == null &&
-                collision.transform != null &&
-                collision.transform.parent != null) {
-                pullFood = collision.transform.parent;
+            if (pullFood == null && collision.transform != null) {
+                pullFood = collision.transform;
                 pullFood.SetParent(transform);
                 if (pullFood != null)
                 {
