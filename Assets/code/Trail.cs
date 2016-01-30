@@ -77,7 +77,7 @@ namespace Assets.code
                 }
                 if (player.pulledFood == null)
                 {
-                    player.Move(followers.Count < maxLength);
+                    player.Move(playerDist < maxLength * followerDist);
                     TryGrowPath();
                     TryAddMoreFollowers();
                 }
@@ -214,7 +214,7 @@ namespace Assets.code
             {
                 Transform follower = (Transform)UnityEngine.Object.Instantiate(main.followerPrefab);
                 Follower f = follower.GetComponent<Follower>();
-                f.distBehind = followerDist * (followers.Count + 1);
+                f.distBehind = lastFollowerDist + followerDist;
                 followers.Add(follower);
                 lastFollowerDist = f.distBehind;
             }
