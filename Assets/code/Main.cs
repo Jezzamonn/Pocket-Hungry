@@ -46,6 +46,8 @@ public class Main : MonoBehaviour {
             Vector3 pos3d = 40 * new Vector3(pos.x, 0, pos.y);
 
             Transform enemy = (Transform)Instantiate(enemyPrefab, pos3d, Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up));
+            Charger c = enemy.GetComponent<Charger>();
+            c.start = enemy.transform.position;
             enemies.Add(enemy);
         }
     }
