@@ -11,6 +11,7 @@ namespace Assets.code
 
         public Transform pullableFood;
         public Transform pulledFood;
+        public Trail trail;
         public float speed = 0.1f;
 
         void Update()
@@ -87,15 +88,31 @@ namespace Assets.code
 
         void OnCollisionEnter(Collision collision)
         {
-            if (pullableFood == null && collision.transform != null)
+            if (collision.transform != null)
             {
-                pullableFood = collision.transform;
+                if (collision.transform.tag == "Food" && pullableFood == null)
+                {
+                    pullableFood = collision.transform;
+                }
+                //else if (collision.transform.tag == "BlockingCube")
+                //{
+                //    trail.PullBack(0.1f);
+                //}
             }
+
         }
 
         void OnCollisionExit(Collision collision)
         {
             pullableFood = null;
         }
+
+        void OnTriggerEnter(Collider other)
+        {
+            trail.maxLength -= 1;
+            trail.PullBack(trail.followerDist);
+            //Destroy(other.gameObject);
+        }
+
     }
 }

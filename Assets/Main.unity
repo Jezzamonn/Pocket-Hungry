@@ -226,7 +226,7 @@ GameObject:
   - 114: {fileID: 1154955460}
   - 54: {fileID: 1154955465}
   m_Layer: 8
-  m_Name: Cube
+  m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -454,11 +454,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 81403128}
-  cubePrefab: {fileID: 458316, guid: a0bddfde3ebba41468178b2cb90a0207, type: 2}
   followerPrefab: {fileID: 439384, guid: 6c020bfbdbe32824f8ed887282ac47fc, type: 2}
   foodPrefab: {fileID: 440026, guid: 4cfdbac1afc7de44cbb6dfabb58c8d9e, type: 2}
+  enemyPrefab: {fileID: 441412, guid: ce57a0bcddd5a29498bbefdd47784761, type: 2}
   player: {fileID: 1154955460}
+  noTouchCube: {fileID: 485430, guid: 0d2afbeeeb8a15e44bf859186388b3c5, type: 2}
   foods: []
+  enemies: []
 --- !u!4 &1597735088
 Transform:
   m_ObjectHideFlags: 0

@@ -11,6 +11,10 @@ namespace Assets.code
 
         // TODO: Change this to a list of points
         public List<TrailPoint> points;
+        public List<Transform> noTouchPoints;
+        public int noTouchPointDist = 2;
+        public int nextNoTouchPoint = 0;
+        public int noTouchPointFreq = 12;
         /// <summary>
         /// The gap between each point in the trail
         /// </summary>
@@ -31,6 +35,7 @@ namespace Assets.code
             this.main = main;
             points = new List<TrailPoint>();
             followers = new List<Transform>();
+            noTouchPoints = new List<Transform>();
 
             //Transform pathStart = (Transform)UnityEngine.Object.Instantiate(main.cubePrefab, player.transform.position, Quaternion.identity);
             TrailPoint pathStart = new TrailPoint
@@ -142,6 +147,18 @@ namespace Assets.code
                         rotation = player.transform.rotation
                     };
                     points.Add(newPart);
+
+                    if (nextNoTouchPoint < points.Count)
+                    {
+                        TrailPoint checkPoint = points[nextNoTouchPoint];
+                        if (Vector3.Distance(checkPoint.position, player.transform.position) > noTouchPointDist)
+                        {
+                            Transform noTouchCube = (Transform)UnityEngine.Object.Instantiate(main.noTouchCube, checkPoint.position, checkPoint.rotation);
+                            noTouchPoints.Add(noTouchCube);
+                            checkPoint.cube = noTouchCube;
+                            nextNoTouchPoint += noTouchPointFreq;
+                        }
+                    }
                 }
                 else
                 {
@@ -182,7 +199,17 @@ namespace Assets.code
                     zipAmt -= dist;
                     if (points.Count > 1)
                     {
-                        //UnityEngine.Object.Destroy(end.gameObject);
+                        int cubePoint = nextNoTouchPoint - noTouchPointFreq;
+                        if (cubePoint >= 0)
+                        {
+                            TrailPoint part = points[cubePoint];
+                            if (Vector3.Distance(part.position, player.transform.position) < noTouchPointDist)
+                            {
+                                UnityEngine.Object.Destroy(part.cube.gameObject);
+                                part.cube = null;
+                                nextNoTouchPoint -= noTouchPointFreq;
+                            }
+                        }
                         points.RemoveAt(points.Count - 1);
                     }
                     else
@@ -194,8 +221,8 @@ namespace Assets.code
                             player.EndPull(food);
                             UnityEngine.Object.Destroy(food.gameObject);
                             maxLength = (int)(1.2 * maxLength) + 1;
-                            player.speed *= 1.1f;
-                            zipSpeed *= 1.1f;
+                            player.speed *= 1.2f;
+                            zipSpeed *= 1.2f;
                         }
                         break;
                     }
