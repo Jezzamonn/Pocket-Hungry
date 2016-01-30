@@ -20,7 +20,7 @@ namespace Assets.code
         public float followerDist = 2.5f;
         public bool locked = false;
 
-        public int maxLength = 100;
+        public int maxLength = 10;
 
         public float playerDist = 0f;
 
@@ -50,7 +50,25 @@ namespace Assets.code
 
         public void MovePlayer()
         {
-            player.Move(followers.Count < maxLength);
+            bool pullResult = CheckPull();
+            if (!pullResult && player.pulledFood == null)
+            {
+                player.transform.SetLayer("AntBody");
+                foreach (var follower in followers)
+                {
+                    follower.SetLayer("AntBody");
+                }
+                player.Move(followers.Count < maxLength);
+                TryGrowPath();
+            }
+            else
+            {
+                player.transform.SetLayer("NoCollide");
+                foreach (var follower in followers)
+                {
+                    follower.SetLayer("NoCollide");
+                }
+            }
         }
 
         public Vector3 GetPositionAt(float dist)
@@ -119,6 +137,7 @@ namespace Assets.code
 
         public void PullBack()
         {
+            
             // TODO: Change this with time
             float zipAmt = curZipSpeed;
             while (zipAmt > 0)
@@ -144,6 +163,16 @@ namespace Assets.code
                     }
                     else
                     {
+                        // We've got stuff back home now!
+                        if (player.pulledFood != null)
+                        {
+                            Transform food = player.pulledFood;
+                            player.EndPull(food);
+                            UnityEngine.Object.Destroy(food.gameObject);
+                            maxLength = (int)(1.2 * maxLength) + 1;
+                            player.speed *= 1.1f;
+                            zipSpeed *= 1.1f;
+                        }
                         break;
                     }
                 }
@@ -174,7 +203,7 @@ namespace Assets.code
             }
         }
 
-        public void CheckPull()
+        public bool CheckPull()
         {
             if (Input.GetButton("Pull Back"))
             {
@@ -184,10 +213,12 @@ namespace Assets.code
                     curZipSpeed = zipSpeed;
                 }
                 PullBack();
+                return true;
             }
             else
             {
                 curZipSpeed = 0;
+                return false;
             }
         }
     }
