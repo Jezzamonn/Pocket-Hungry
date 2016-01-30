@@ -24,7 +24,7 @@ namespace Assets.code
         public float followerDist = 2.0f;
         public bool recovering = false;
 
-        public int maxLength = 10;
+        public int maxLength = 300;
 
         public float playerDist = 0f;
 

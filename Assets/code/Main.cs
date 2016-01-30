@@ -7,7 +7,7 @@ public class Main : MonoBehaviour {
 
     public Camera cam;
     public Transform followerPrefab;
-    public Transform foodPrefab;
+    public Transform[] foodPrefabs;
     public Transform enemyPrefab;
     public Player player;
     public Transform noTouchCube;
@@ -21,17 +21,18 @@ public class Main : MonoBehaviour {
         trail = new Trail(this);
         player.trail = trail;
         foods = new List<Transform>();
-        for (int i = 0; i < 5; i ++)
+        for (int i = 0; i < 20; i ++)
         {
             Vector2 pos;
             do
             {
                 pos = Random.insideUnitCircle;
             }
-            while (pos.sqrMagnitude < 0.2f);
-            Vector3 pos3d = 30 * new Vector3(pos.x, 0, pos.y);
+            while (pos.sqrMagnitude < 0.01f);
+            Vector3 pos3d = 200 * new Vector3(pos.x, 0, pos.y);
 
-            Transform newFood = (Transform)Instantiate(foodPrefab, pos3d, Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up));
+            Transform prefab = foodPrefabs[Random.Range(0, foodPrefabs.Length)];
+            Transform newFood = (Transform)Instantiate(prefab, pos3d, Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up));
             foods.Add(newFood);
         }
 
