@@ -18,7 +18,7 @@ namespace Assets.code
         public float zipSpeed = 0.5f;
         public float curZipSpeed = 0f;
         public float followerDist = 2.5f;
-        public bool locked = false;
+        public bool recovering = false;
 
         public int maxLength = 10;
 
@@ -41,6 +41,13 @@ namespace Assets.code
             points.Add(pathStart);
         }
 
+        internal void TotalUpdate()
+        {
+            MovePlayer();
+            UpdateDistance();
+            UpdateFollowers();
+        }
+
         public Player player {
             get
             {
@@ -50,23 +57,29 @@ namespace Assets.code
 
         public void MovePlayer()
         {
+            // try pull
             bool pullResult = CheckPull();
-            if (!pullResult && player.pulledFood == null)
+            if (pullResult)
+            {
+                TryRemoveFollowers();
+                player.transform.SetLayer("NoCollide");
+                foreach (var follower in followers)
+                {
+                    follower.SetLayer("NoCollide");
+                }
+            }
+            else
             {
                 player.transform.SetLayer("AntBody");
                 foreach (var follower in followers)
                 {
                     follower.SetLayer("AntBody");
                 }
-                player.Move(followers.Count < maxLength);
-                TryGrowPath();
-            }
-            else
-            {
-                player.transform.SetLayer("NoCollide");
-                foreach (var follower in followers)
+                if (player.pulledFood == null)
                 {
-                    follower.SetLayer("NoCollide");
+                    player.Move(followers.Count < maxLength);
+                    TryGrowPath();
+                    TryAddMoreFollowers();
                 }
             }
         }
@@ -135,11 +148,14 @@ namespace Assets.code
             //trail.Add(newPart);
         }
 
-        public void PullBack()
+        public void MoveBack()
         {
-            
-            // TODO: Change this with time
-            float zipAmt = curZipSpeed;
+            PullBack(curZipSpeed);
+        }
+
+        public void PullBack(float amt)
+        {
+            float zipAmt = amt;
             while (zipAmt > 0)
             {
                 TrailPoint end = points[points.Count - 1];
@@ -179,28 +195,50 @@ namespace Assets.code
             }
         }
 
-        public void UpdateFollowers()
+        public void TryAddMoreFollowers()
         {
-            int numFollowers = (int)Mathf.FloorToInt(playerDist / followerDist);
-            while (numFollowers > followers.Count)
-            {   
-                Transform follower = (Transform)UnityEngine.Object.Instantiate(main.followerPrefab);
-                followers.Add(follower);
+            float lastFollowerDist = 0;
+            if (followers.Count > 0)
+            {
+                lastFollowerDist = followers[followers.Count - 1].GetComponent<Follower>().distBehind;
             }
-            while (numFollowers < followers.Count)
+            while (lastFollowerDist + followerDist < playerDist)
+            {
+                Transform follower = (Transform)UnityEngine.Object.Instantiate(main.followerPrefab);
+                Follower f = follower.GetComponent<Follower>();
+                f.distBehind = followerDist * (followers.Count + 1);
+                followers.Add(follower);
+                lastFollowerDist = f.distBehind;
+            }
+        }
+
+        public void TryRemoveFollowers()
+        {
+            while (followers.Count > 0 && followers[followers.Count - 1].GetComponent<Follower>().distBehind > playerDist)
             {
                 Transform follower = followers[followers.Count - 1];
                 UnityEngine.Object.Destroy(follower.gameObject);
                 followers.RemoveAt(followers.Count - 1);
             }
+        }
 
-            float remainder = playerDist - (followerDist * numFollowers);
-            for (int i = 0; i < followers.Count; i ++)
+        public void UpdateFollowers()
+        {
+            foreach (var follower in followers)
             {
-                float dist = followerDist * i + remainder;
-                followers[i].position = GetPositionAt(dist);
-                followers[i].rotation = GetRotationAt(dist);
+                Follower f = follower.GetComponent<Follower>();
+                float dist = playerDist - f.distBehind;
+                follower.position = GetPositionAt(dist);
+                follower.rotation = GetRotationAt(dist);
             }
+
+            //float remainder = playerDist - (followerDist * numFollowers);
+            //for (int i = 0; i < followers.Count; i ++)
+            //{
+            //    float dist = followerDist * i + remainder;
+            //    followers[i].position = GetPositionAt(dist);
+            //    followers[i].rotation = GetRotationAt(dist);
+            //}
         }
 
         public bool CheckPull()
@@ -212,7 +250,7 @@ namespace Assets.code
                 {
                     curZipSpeed = zipSpeed;
                 }
-                PullBack();
+                MoveBack();
                 return true;
             }
             else
