@@ -1,0 +1,117 @@
+fileFormatVersion: 2
+guid: 21bd42fb18f693f4f9c5b541a4578853
+timeCreated: 1454139807
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: ab_jnt
+    100002: end_jnt
+    100004: head_end_jnt
+    100006: head_jnt
+    100008: l_arm_jnt
+    100010: l_elbow_jnt
+    100012: l_end_jnt
+    100014: l_wrist_jnt
+    100016: middle_jnt
+    100018: pelvis_jnt
+    100020: queen_geo
+    100022: queen_l_claw
+    100024: queen_r_claw
+    100026: //RootNode
+    100028: r_arm_jnt
+    100030: r_elbow_jnt
+    100032: r_end_jnt
+    100034: r_wrist_jnt
+    400000: ab_jnt
+    400002: end_jnt
+    400004: head_end_jnt
+    400006: head_jnt
+    400008: l_arm_jnt
+    400010: l_elbow_jnt
+    400012: l_end_jnt
+    400014: l_wrist_jnt
+    400016: middle_jnt
+    400018: pelvis_jnt
+    400020: queen_geo
+    400022: queen_l_claw
+    400024: queen_r_claw
+    400026: //RootNode
+    400028: r_arm_jnt
+    400030: r_elbow_jnt
+    400032: r_end_jnt
+    400034: r_wrist_jnt
+    2300000: queen_l_claw
+    2300002: queen_r_claw
+    3300000: queen_l_claw
+    3300002: queen_r_claw
+    4300000: queen_geo
+    4300002: queen_l_claw
+    4300004: queen_r_claw
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: queen_geo
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
