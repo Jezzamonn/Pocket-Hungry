@@ -38,7 +38,7 @@ ModelImporter:
     400028: r_end_jnt
     400030: r_wrist_jnt
     4300000: mini_hungry
-    7400000: Take 001
+    7400000: Walk
     9500000: //RootNode
     13700000: mini_hungry
   materials:
@@ -61,7 +61,67 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Walk
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 12
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: middle_jnt
+        weight: 1
+      - path: middle_jnt/head_jnt
+        weight: 1
+      - path: middle_jnt/head_jnt/head_end_jnt
+        weight: 1
+      - path: middle_jnt/l_arm_jnt
+        weight: 1
+      - path: middle_jnt/l_arm_jnt/l_elbow_jnt
+        weight: 1
+      - path: middle_jnt/l_arm_jnt/l_elbow_jnt/l_wrist_jnt
+        weight: 1
+      - path: middle_jnt/l_arm_jnt/l_elbow_jnt/l_wrist_jnt/l_end_jnt
+        weight: 1
+      - path: middle_jnt/pelvis_jnt
+        weight: 1
+      - path: middle_jnt/pelvis_jnt/ab_jnt
+        weight: 1
+      - path: middle_jnt/pelvis_jnt/ab_jnt/end_jnt
+        weight: 1
+      - path: middle_jnt/r_arm_jnt
+        weight: 1
+      - path: middle_jnt/r_arm_jnt/r_elbow_jnt
+        weight: 1
+      - path: middle_jnt/r_arm_jnt/r_elbow_jnt/r_wrist_jnt
+        weight: 1
+      - path: middle_jnt/r_arm_jnt/r_elbow_jnt/r_wrist_jnt/r_end_jnt
+        weight: 1
+      - path: mini_hungry
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
     isReadable: 1
   meshes:
     lODScreenPercentages: []

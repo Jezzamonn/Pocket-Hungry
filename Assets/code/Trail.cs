@@ -17,7 +17,7 @@ namespace Assets.code
         public float pointGap = 0.1f;
         public float zipSpeed = 0.5f;
         public float curZipSpeed = 0f;
-        public float followerDist = 2.5f;
+        public float followerDist = 2.0f;
         public bool recovering = false;
 
         public int maxLength = 10;
@@ -214,7 +214,7 @@ namespace Assets.code
 
         public void TryRemoveFollowers()
         {
-            while (followers.Count > 0 && followers[followers.Count - 1].GetComponent<Follower>().distBehind > playerDist)
+            while (followers.Count > 0 && followers[followers.Count - 1].GetComponent<Follower>().distBehind >= playerDist)
             {
                 Transform follower = followers[followers.Count - 1];
                 UnityEngine.Object.Destroy(follower.gameObject);

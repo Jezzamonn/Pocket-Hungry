@@ -6,19 +6,34 @@ namespace Assets.code
     {
         public float distBehind = 0;
         public bool attached = true;
+        public float deadCount = 0;
+
+        void Update()
+        {
+            //if (!attached)
+            //{
+            //    deadCount += Time.deltaTime;
+            //    if (deadCount > 3)
+            //    {
+            //        Destroy(gameObject);
+            //    }
+            //}
+        }
 
         public void FlipOut()
         {
-            Rigidbody bod = GetComponent<Rigidbody>();
-            bod.drag = 1;
-            bod.angularDrag = 1;
-            Vector2 sideways;
-            do {
-                sideways = Random.insideUnitCircle;
-            }
-            while (sideways.SqrMagnitude() < 0.2f);
-            bod.AddRelativeForce(2 * new Vector3(sideways.x, 1, sideways.y));
-            bod.AddRelativeTorque(Random.onUnitSphere);
+            Destroy(gameObject);
+            //Rigidbody bod = GetComponent<Rigidbody>();
+            //bod.drag = 1;
+            //bod.angularDrag = 1;
+            //Vector2 sideways;
+            //do {
+            //    sideways = Random.insideUnitCircle;
+            //}
+            //while (sideways.SqrMagnitude() < 0.2f);
+            //bod.force
+            //deadCount = 0;
+            //attached = false;
         }
     }
 }
