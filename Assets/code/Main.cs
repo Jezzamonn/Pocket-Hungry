@@ -6,13 +6,14 @@ using Assets.code;
 public class Main : MonoBehaviour {
 
     public Camera cam;
-    public Transform cubePrefab;
     public Transform followerPrefab;
     public Transform foodPrefab;
+    public Transform enemyPrefab;
     public Player player;
 
     public Trail trail;
     public List<Transform> foods;
+    public List<Transform> enemies;
 
 	// Use this for initialization
 	void Start () {
@@ -28,8 +29,22 @@ public class Main : MonoBehaviour {
             while (pos.sqrMagnitude < 0.5f);
             Vector3 pos3d = 30 * new Vector3(pos.x, 0, pos.y);
 
-            Transform newFood = (Transform)Instantiate(foodPrefab, pos3d, Quaternion.identity);
+            Transform newFood = (Transform)Instantiate(foodPrefab, pos3d, Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up));
             foods.Add(newFood);
+        }
+
+        for (int i = 0; i < 6; i ++)
+        {
+            Vector2 pos;
+            do
+            {
+                pos = Random.insideUnitCircle;
+            }
+            while (pos.sqrMagnitude < 0.3f);
+            Vector3 pos3d = 40 * new Vector3(pos.x, 0, pos.y);
+
+            Transform enemy = (Transform)Instantiate(enemyPrefab, pos3d, Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up));
+            enemies.Add(enemy);
         }
     }
 
@@ -38,6 +53,11 @@ public class Main : MonoBehaviour {
         trail.TotalUpdate();
         player.CheckFood();
         UpdateCamera();
+        foreach (Transform enemy in enemies)
+        {
+            Charger c = enemy.GetComponent<Charger>();
+            c.SpecialUpdate(player);
+        }
 
         if (Input.GetButtonDown("Test"))
         {

@@ -13,6 +13,9 @@ namespace Assets.code
 
         public State state = State.Idle;
         public float agroDist = 10;
+        public Vector3 chargeDir;
+        public float speed = 0.5f;
+        public float count = 0;
 
         public void TryAgro(Player player)
         {
@@ -20,6 +23,27 @@ namespace Assets.code
             if (dist < agroDist)
             {
                 state = State.Agro;
+                chargeDir = (player.transform.position - transform.position);
+                transform.rotation = Quaternion.LookRotation(chargeDir);
+                chargeDir.Normalize();
+            }
+        }
+
+        public void SpecialUpdate(Player player)
+        {
+            switch (state)
+            {
+                case State.Agro:
+                    count += Time.fixedDeltaTime;
+                    transform.position += speed * chargeDir;
+                    if (count > 1)
+                    {
+                        state = State.Idle;
+                    }
+                    break;
+                case State.Idle:
+                    TryAgro(player);
+                    break;
             }
         }
 

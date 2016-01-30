@@ -109,6 +109,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 441412}
+  - 114: {fileID: 11493940}
+  - 54: {fileID: 5499722}
+  - 65: {fileID: 6559882}
   m_Layer: 0
   m_Name: Enem
   m_TagString: Untagged
@@ -341,7 +344,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 161496}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: -0.00000016292068}
-  m_LocalPosition: {x: -2.3267, y: 0.80923, z: -1.1961}
+  m_LocalPosition: {x: 0, y: 0.94, z: 0}
   m_LocalScale: {x: 2.3626232, y: 2.3626237, z: 2.3626237}
   m_Children:
   - {fileID: 452388}
@@ -691,6 +694,33 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 124416}
   m_Mesh: {fileID: 4300006, guid: 7cd6022dafce32f40b01b8528deb1840, type: 3}
+--- !u!54 &5499722
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163832}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &6559882
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163832}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.5393043, y: 1, z: 6.1962204}
+  m_Center: {x: -0.026914775, y: 1.1, z: 0.7434921}
 --- !u!95 &9532128
 Animator:
   serializedVersion: 3
@@ -708,6 +738,22 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11493940
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5ef4f7ca2ee1fa45af57908c34235a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  agroDist: 10
+  chargeDir: {x: 0, y: 0, z: 0}
+  speed: 2
+  count: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
