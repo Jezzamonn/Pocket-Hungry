@@ -87,6 +87,10 @@ namespace Assets.code
         public Vector3 GetPositionAt(float dist)
         {
             int index = (int)(dist / pointGap);
+            if (index < 0)
+            {
+                return points[0].position;
+            }
             float remainder = dist - (pointGap * index);
             Vector3 start = points[index].position;
             Vector3 end = player.transform.position;
@@ -101,6 +105,10 @@ namespace Assets.code
         {
             // Code duplication!
             int index = (int)(dist / pointGap);
+            if (index < 0)
+            {
+                return points[0].rotation;
+            }
             float remainder = (dist - (pointGap * index)) / pointGap;
             Quaternion start = points[index].rotation;
             Quaternion end = player.transform.rotation;

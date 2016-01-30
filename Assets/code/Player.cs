@@ -38,7 +38,7 @@ namespace Assets.code
             }
         }
 
-        public void Move(bool canMove)
+        public bool Move(bool canMove)
         {
             float xDir = Input.GetAxis("Horizontal");
             float yDir = Input.GetAxis("Vertical");
@@ -61,9 +61,11 @@ namespace Assets.code
                     {
                         //body.MovePosition(transform.position + speed * moveDir);
                         body.MovePosition(transform.position + transform.forward * speed * moveDir.magnitude);
+                        return true;
                     }
                 }
             }
+            return false;
         }
 
         public void BeginPull(Transform pullee)
