@@ -33,6 +33,7 @@ namespace Assets.code
 
         public void SpecialUpdate(Player player)
         {
+            Rigidbody body = GetComponent<Rigidbody>();
             switch (state)
             {
                 case State.Agro:
@@ -42,8 +43,10 @@ namespace Assets.code
                     {
                         speed = maxSpeed;
                     }
-                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(chargeDir), 0.2f);
-                    transform.position += speed * transform.forward;
+                    Quaternion newRot = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(chargeDir), 0.2f);
+                    body.MoveRotation(newRot);
+                    Vector3 newPos = transform.position + (speed * transform.forward);
+                    body.MovePosition(newPos);
                     moved += speed;
                     if (moved > 25)
                     {
@@ -53,7 +56,7 @@ namespace Assets.code
                     break;
                 case State.Idle:
                     speed *= 0.9f;
-                    transform.position += speed * transform.forward;
+                    body.MovePosition(transform.position + speed * transform.forward);
                     if (speed < 0.01f) {
                         TryAgro(player);
                     }
