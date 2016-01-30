@@ -9,8 +9,9 @@ namespace Assets.code
     public class Player : MonoBehaviour
     {
 
-        public Transform pullFood;
-        public float speed = 0.5f;
+        public Transform pullableFood;
+        public Transform pulledFood;
+        public float speed = 0.1f;
 
         void Update()
         {
@@ -22,17 +23,18 @@ namespace Assets.code
 
         public void CheckFood()
         {
-            if (!Input.GetButton("Grab") && pullFood != null)
+            if (Input.GetButtonDown("Grab"))
             {
-                pullFood.SetParent(null);
-                if (pullFood != null)
+                if (pulledFood != null)
                 {
-                    foreach (Transform trans in pullFood.gameObject.GetComponentsInChildren<Transform>(true))
-                    {
-                        trans.gameObject.layer = LayerMask.NameToLayer("Default");
-                    }
+                    // let go
+                    EndPull(pulledFood);
                 }
-                pullFood = null;
+                else if (pullableFood)
+                {
+                    // grab it
+                    BeginPull(pullableFood);
+                }
             }
         }
 
@@ -44,28 +46,54 @@ namespace Assets.code
             Rigidbody body = GetComponent<Rigidbody>();
             if (moveDir.sqrMagnitude > 0)
             {
-                body.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveDir), 0.2f));
-                if (canMove)
+                //if (transform.position.y < 0)
+                //{
+                //    transform.position += speed * moveDir.magnitude * Vector3.up;
+                //    if (transform.position.y > 0)
+                //    {
+                //        transform.position = new Vector3(transform.position.x, transform.position.z);
+                //    }
+                //}
+                //else
                 {
-                    //body.MovePosition(transform.position + speed * moveDir);
-                    body.MovePosition(transform.position + transform.forward * speed * moveDir.magnitude);
+                    body.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveDir), 0.2f));
+                    if (canMove)
+                    {
+                        //body.MovePosition(transform.position + speed * moveDir);
+                        body.MovePosition(transform.position + transform.forward * speed * moveDir.magnitude);
+                    }
                 }
             }
         }
 
+        public void BeginPull(Transform pullee)
+        {
+            if (pulledFood)
+            {
+                EndPull(pulledFood);
+            }
+            pullee.SetParent(this.transform);
+            pulledFood = pullee;
+        }
+
+        public void EndPull(Transform pullee)
+        {
+            pullee.SetParent(null);
+            pullee.SetLayer("Default");
+            pulledFood = null;
+        }
+
         void OnCollisionEnter(Collision collision)
         {
-            if (pullFood == null && collision.transform != null) {
-                pullFood = collision.transform;
-                pullFood.SetParent(transform);
-                if (pullFood != null)
-                {
-                    foreach (Transform trans in pullFood.gameObject.GetComponentsInChildren<Transform>(true))
-                    {
-                        trans.gameObject.layer = LayerMask.NameToLayer("AntBody");
-                    }
-                }
+            if (pullableFood == null && collision.transform != null)
+            {
+                pullableFood = collision.transform;
             }
+        }
+
+        void OnCollisionExit(Collision collision)
+        {
+            pullableFood = null;
         }
     }
 }
