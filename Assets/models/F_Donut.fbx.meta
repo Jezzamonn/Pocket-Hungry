@@ -1,24 +1,14 @@
 fileFormatVersion: 2
-guid: c776a57d2a8c0e24d89fa89658be6922
-timeCreated: 1454121141
+guid: 3da9ccfa75b5815489b5faaa4ee4d5a7
+timeCreated: 1454121978
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: pCylinder1
-    100004: pTorus1
-    100006: pTorus2
-    100008: transform1
-    100010: transform2
     400000: //RootNode
-    400002: pCylinder1
-    400004: pTorus1
-    400006: pTorus2
-    400008: transform1
-    400010: transform2
-    2300000: pTorus2
-    3300000: pTorus2
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: pTorus2
     9500000: //RootNode
   materials:
