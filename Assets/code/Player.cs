@@ -22,6 +22,10 @@ namespace Assets.code
             float yDir = Input.GetAxis("Vertical");
             Vector3 moveDir = Vector3.ClampMagnitude(new Vector3(xDir, 0, yDir), 1);
             transform.position += speed * moveDir;
+            if (moveDir.sqrMagnitude > 0)
+            {
+                transform.rotation = Quaternion.LookRotation(moveDir);
+            }
         }
     }
 }
