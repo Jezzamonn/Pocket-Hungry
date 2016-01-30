@@ -42,6 +42,7 @@ public class Main : MonoBehaviour {
         if (Input.GetButtonDown("Test"))
         {
             int index = Random.Range(0, trail.followers.Count);
+            trail.followers[index].GetComponent<Follower>().FlipOut();
             trail.followers.RemoveAt(index);
         }
     }
