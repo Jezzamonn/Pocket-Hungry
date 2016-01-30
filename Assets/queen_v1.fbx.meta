@@ -48,7 +48,7 @@ ModelImporter:
     4300000: queen_geo
     4300002: queen_l_claw
     4300004: queen_r_claw
-    7400000: Take 001
+    7400000: Queen Walk
     9500000: //RootNode
     13700000: queen_geo
   materials:
@@ -71,7 +71,71 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Queen Walk
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 12
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: middle_jnt
+        weight: 1
+      - path: middle_jnt/head_jnt
+        weight: 1
+      - path: middle_jnt/head_jnt/head_end_jnt
+        weight: 1
+      - path: middle_jnt/l_arm_jnt
+        weight: 1
+      - path: middle_jnt/l_arm_jnt/l_elbow_jnt
+        weight: 1
+      - path: middle_jnt/l_arm_jnt/l_elbow_jnt/l_wrist_jnt
+        weight: 1
+      - path: middle_jnt/l_arm_jnt/l_elbow_jnt/l_wrist_jnt/l_end_jnt
+        weight: 1
+      - path: middle_jnt/pelvis_jnt
+        weight: 1
+      - path: middle_jnt/pelvis_jnt/ab_jnt
+        weight: 1
+      - path: middle_jnt/pelvis_jnt/ab_jnt/end_jnt
+        weight: 1
+      - path: middle_jnt/r_arm_jnt
+        weight: 1
+      - path: middle_jnt/r_arm_jnt/r_elbow_jnt
+        weight: 1
+      - path: middle_jnt/r_arm_jnt/r_elbow_jnt/r_wrist_jnt
+        weight: 1
+      - path: middle_jnt/r_arm_jnt/r_elbow_jnt/r_wrist_jnt/r_end_jnt
+        weight: 1
+      - path: queen_geo
+        weight: 1
+      - path: queen_l_claw
+        weight: 1
+      - path: queen_r_claw
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
     isReadable: 1
   meshes:
     lODScreenPercentages: []
