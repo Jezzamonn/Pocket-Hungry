@@ -9,8 +9,8 @@ namespace Assets.code
 
     public class TrailPoint
     {
-        public Vector2 Pos { get; set; }
+        public Vector3 position { get; set; }
 
-        public Vector2 Dir { get; set; }
+        public Quaternion rotation { get; set; }
     }
 }

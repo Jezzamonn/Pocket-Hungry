@@ -21,10 +21,11 @@ namespace Assets.code
             float xDir = Input.GetAxis("Horizontal");
             float yDir = Input.GetAxis("Vertical");
             Vector3 moveDir = Vector3.ClampMagnitude(new Vector3(xDir, 0, yDir), 1);
-            transform.position += speed * moveDir;
+            Rigidbody body = GetComponent<Rigidbody>();
+            body.MovePosition(transform.position + speed * moveDir);
             if (moveDir.sqrMagnitude > 0)
             {
-                transform.rotation = Quaternion.LookRotation(moveDir);
+                body.MoveRotation(Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(moveDir), 0.2f));
             }
         }
     }
