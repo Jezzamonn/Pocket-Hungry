@@ -18,6 +18,9 @@ namespace Assets.code
         public float zipSpeed = 0.5f;
         public float curZipSpeed = 0f;
         public float followerDist = 1.5f;
+        public bool locked = false;
+
+        public int maxLength = 100;
 
         public float playerDist = 0f;
 
@@ -43,6 +46,11 @@ namespace Assets.code
             {
                 return main.player;
             }
+        }
+
+        public void MovePlayer()
+        {
+            player.Move(followers.Count < maxLength);
         }
 
         public Vector3 GetPositionAt(float dist)
@@ -82,17 +90,24 @@ namespace Assets.code
         public void TryGrowPath()
         {
             // TODO: Scale this with Time
-            TrailPoint end = points[points.Count - 1];
-            if (Vector3.Distance(end.position, player.transform.position) > pointGap)
+            while (true)
             {
-                Vector3 newPos = Vector3.MoveTowards(end.position, player.transform.position, pointGap);
-                //Transform newPart = (Transform)UnityEngine.Object.Instantiate(main.cubePrefab, newPos, player.transform.rotation);
-                TrailPoint newPart = new TrailPoint
+                TrailPoint end = points[points.Count - 1];
+                if (Vector3.Distance(end.position, player.transform.position) > pointGap)
                 {
-                    position = newPos,
-                    rotation = player.transform.rotation
-                };
-                points.Add(newPart);
+                    Vector3 newPos = Vector3.MoveTowards(end.position, player.transform.position, pointGap);
+                    //Transform newPart = (Transform)UnityEngine.Object.Instantiate(main.cubePrefab, newPos, player.transform.rotation);
+                    TrailPoint newPart = new TrailPoint
+                    {
+                        position = newPos,
+                        rotation = player.transform.rotation
+                    };
+                    points.Add(newPart);
+                }
+                else
+                {
+                    break;
+                }
             }
 
             //Transform end = trail[trail.Count - 1];
