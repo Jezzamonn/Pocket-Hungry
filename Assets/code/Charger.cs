@@ -12,9 +12,11 @@ namespace Assets.code
         }
 
         public State state = State.Idle;
-        public float agroDist = 10;
+        public float agroDist = 20;
         public Vector3 chargeDir;
-        public float speed = 0.5f;
+        public float speed = 0;
+        public float maxSpeed = 3f;
+        public float moved = 0;
         public float count = 0;
 
         public void TryAgro(Player player)
@@ -23,9 +25,9 @@ namespace Assets.code
             if (dist < agroDist)
             {
                 state = State.Agro;
-                chargeDir = (player.transform.position - transform.position);
-                transform.rotation = Quaternion.LookRotation(chargeDir);
-                chargeDir.Normalize();
+                chargeDir = (player.transform.position - transform.position).normalized;
+                //transform.rotation = Quaternion.LookRotation(chargeDir);
+                //chargeDir.Normalize();
             }
         }
 
@@ -35,14 +37,26 @@ namespace Assets.code
             {
                 case State.Agro:
                     count += Time.fixedDeltaTime;
-                    transform.position += speed * chargeDir;
-                    if (count > 0.5)
+                    speed += 0.02f;
+                    if (speed > maxSpeed)
+                    {
+                        speed = maxSpeed;
+                    }
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(chargeDir), 0.2f);
+                    transform.position += speed * transform.forward;
+                    moved += speed;
+                    if (moved > 25)
                     {
                         state = State.Idle;
+                        moved = 0;
                     }
                     break;
                 case State.Idle:
-                    TryAgro(player);
+                    speed *= 0.9f;
+                    transform.position += speed * transform.forward;
+                    if (speed < 0.01f) {
+                        TryAgro(player);
+                    }
                     break;
             }
         }

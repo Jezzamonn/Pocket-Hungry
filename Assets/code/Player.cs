@@ -106,5 +106,13 @@ namespace Assets.code
         {
             pullableFood = null;
         }
+
+        void OnTriggerEnter(Collider other)
+        {
+            trail.maxLength -= 1;
+            trail.PullBack(trail.followerDist);
+            //Destroy(other.gameObject);
+        }
+
     }
 }
