@@ -12,5 +12,7 @@ namespace Assets.code
         public Vector3 position { get; set; }
 
         public Quaternion rotation { get; set; }
+
+        public Transform cube { get; set; }
     }
 }

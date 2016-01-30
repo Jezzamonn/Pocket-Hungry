@@ -10,6 +10,7 @@ public class Main : MonoBehaviour {
     public Transform foodPrefab;
     public Transform enemyPrefab;
     public Player player;
+    public Transform noTouchCube;
 
     public Trail trail;
     public List<Transform> foods;
@@ -18,6 +19,7 @@ public class Main : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         trail = new Trail(this);
+        player.trail = trail;
         foods = new List<Transform>();
         for (int i = 0; i < 5; i ++)
         {
@@ -26,7 +28,7 @@ public class Main : MonoBehaviour {
             {
                 pos = Random.insideUnitCircle;
             }
-            while (pos.sqrMagnitude < 0.5f);
+            while (pos.sqrMagnitude < 0.2f);
             Vector3 pos3d = 30 * new Vector3(pos.x, 0, pos.y);
 
             Transform newFood = (Transform)Instantiate(foodPrefab, pos3d, Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up));

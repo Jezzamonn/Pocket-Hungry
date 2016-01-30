@@ -36,7 +36,7 @@ namespace Assets.code
                 case State.Agro:
                     count += Time.fixedDeltaTime;
                     transform.position += speed * chargeDir;
-                    if (count > 1)
+                    if (count > 0.5)
                     {
                         state = State.Idle;
                     }
