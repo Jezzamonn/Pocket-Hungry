@@ -28,6 +28,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 440026}
   - 54: {fileID: 5410886}
+  - 114: {fileID: 11407608}
   m_Layer: 0
   m_Name: Donut Prefab
   m_TagString: Food
@@ -130,6 +131,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11407608
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 160332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f27451d0bb2dc824db62d165f2911228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ants: 8
+  distance: 70
 --- !u!135 &13584228
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -160,6 +174,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: Food
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: ants
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: distance
+      value: 70
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

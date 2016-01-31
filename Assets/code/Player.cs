@@ -12,7 +12,6 @@ namespace Assets.code
         public Transform pullableFood;
         public Transform pulledFood;
         public Trail trail;
-        public float speed = 0.1f;
 
         void Update()
         {
@@ -61,7 +60,7 @@ namespace Assets.code
                     if (canMove)
                     {
                         //body.MovePosition(transform.position + speed * moveDir);
-                        body.MovePosition(transform.position + transform.forward * speed * moveDir.magnitude);
+                        body.MovePosition(transform.position + transform.forward * trail.PlayerSpeed * moveDir.magnitude);
                         return true;
                     }
                 }

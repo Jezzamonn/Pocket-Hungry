@@ -77,6 +77,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 477298}
   - 54: {fileID: 5469188}
+  - 114: {fileID: 11475268}
   m_Layer: 0
   m_Name: Cherry Prefab
   m_TagString: Food
@@ -279,6 +280,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11475268
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 176946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f27451d0bb2dc824db62d165f2911228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ants: 3
+  distance: 20
 --- !u!136 &13661298
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -298,7 +312,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: ants
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: distance
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 176946}

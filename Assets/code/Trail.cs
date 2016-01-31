@@ -19,12 +19,13 @@ namespace Assets.code
         /// The gap between each point in the trail
         /// </summary>
         public float pointGap = 0.1f;
-        public float zipSpeed = 0.5f;
+        //public float zipSpeed = 0.5f;
         public float curZipSpeed = 0f;
         public float followerDist = 2.0f;
         public bool recovering = false;
 
-        public int maxLength = 300;
+        public int maxLength = 10;
+        public int foodGotten = 0;
 
         public float playerDist = 0f;
 
@@ -46,9 +47,9 @@ namespace Assets.code
             points.Add(pathStart);
         }
 
-        internal void TotalUpdate()
+        internal void TotalUpdate(bool nightTime)
         {
-            MovePlayer();
+            MovePlayer(nightTime);
             UpdateDistance();
             UpdateFollowers();
         }
@@ -60,32 +61,54 @@ namespace Assets.code
             }
         }
 
-        public void MovePlayer()
+        public float PlayerSpeed
+        {
+            get
+            {
+                return 0.01f * maxLength;
+            }
+        }
+
+        public float ZipSpeed
+        {
+            get
+            {
+                return 0.05f * maxLength;
+            }
+        }
+
+        public void MovePlayer(bool nightTime)
         {
             // try pull
-            bool pullResult = CheckPull();
-            if (pullResult)
+            if (Input.GetButton("Pull Back") || nightTime)
             {
-                TryRemoveFollowers();
-                player.transform.SetLayer("NoCollide");
-                foreach (var follower in followers)
+                SetLayer("NoCollide");
+                curZipSpeed += 0.01f;
+                if (curZipSpeed > ZipSpeed)
                 {
-                    follower.SetLayer("NoCollide");
+                    curZipSpeed = ZipSpeed;
                 }
+                MoveBack();
             }
             else
             {
-                player.transform.SetLayer("AntBody");
-                foreach (var follower in followers)
-                {
-                    follower.SetLayer("AntBody");
-                }
+                curZipSpeed = 0;
+                SetLayer("AntBody");
                 if (player.pulledFood == null)
                 {
                     player.Move(playerDist < maxLength * followerDist);
                     TryGrowPath();
                     TryAddMoreFollowers();
                 }
+            }
+        }
+
+        public void SetLayer(string name)
+        {
+            player.transform.SetLayer(name);
+            foreach (var follower in followers)
+            {
+                follower.SetLayer(name);
             }
         }
 
@@ -219,15 +242,19 @@ namespace Assets.code
                         {
                             Transform food = player.pulledFood;
                             player.EndPull(food);
+                            main.foods.Remove(food);
+                            Food f = food.GetComponent<Food>();
+                            foodGotten += f.ants;
                             UnityEngine.Object.Destroy(food.gameObject);
-                            maxLength = (int)(1.2 * maxLength) + 1;
-                            player.speed *= 1.2f;
-                            zipSpeed *= 1.2f;
+                            //maxLength = (int)(1.2 * maxLength) + 1;
+                            //player.speed *= 1.2f;
+                            //zipSpeed *= 1.2f;
                         }
                         break;
                     }
                 }
             }
+            TryRemoveFollowers();
         }
 
         public void TryAddMoreFollowers()
@@ -276,23 +303,11 @@ namespace Assets.code
             //}
         }
 
-        public bool CheckPull()
+        public void GrowUp()
         {
-            if (Input.GetButton("Pull Back"))
-            {
-                curZipSpeed += 0.01f;
-                if (curZipSpeed > zipSpeed)
-                {
-                    curZipSpeed = zipSpeed;
-                }
-                MoveBack();
-                return true;
-            }
-            else
-            {
-                curZipSpeed = 0;
-                return false;
-            }
+            maxLength += foodGotten;
+            foodGotten = 0;
         }
+
     }
 }

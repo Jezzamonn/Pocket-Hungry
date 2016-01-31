@@ -16,46 +16,29 @@ public class Main : MonoBehaviour {
     public List<Transform> foods;
     public List<Transform> enemies;
 
+    public float curTime = 0;
+    public float dayLength = 20;
+    public SpriteRenderer shadow;
+
 	// Use this for initialization
 	void Start () {
         trail = new Trail(this);
         player.trail = trail;
         foods = new List<Transform>();
-        for (int i = 0; i < 20; i ++)
-        {
-            Vector2 pos;
-            do
-            {
-                pos = Random.insideUnitCircle;
-            }
-            while (pos.sqrMagnitude < 0.01f);
-            Vector3 pos3d = 200 * new Vector3(pos.x, 0, pos.y);
-
-            Transform prefab = foodPrefabs[Random.Range(0, foodPrefabs.Length)];
-            Transform newFood = (Transform)Instantiate(prefab, pos3d, Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up));
-            foods.Add(newFood);
-        }
-
-        for (int i = 0; i < 6; i ++)
-        {
-            Vector2 pos;
-            do
-            {
-                pos = Random.insideUnitCircle;
-            }
-            while (pos.sqrMagnitude < 0.3f);
-            Vector3 pos3d = 40 * new Vector3(pos.x, 0, pos.y);
-
-            Transform enemy = (Transform)Instantiate(enemyPrefab, pos3d, Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up));
-            Charger c = enemy.GetComponent<Charger>();
-            c.start = enemy.transform.position;
-            enemies.Add(enemy);
-        }
+        GoToNextDay();
     }
 
 	// Update is called once per frame
 	void Update () {
-        trail.TotalUpdate();
+        if (curTime > dayLength && trail.playerDist <= 0.01)
+        {
+            // next day
+            GoToNextDay();
+        }
+
+        UpdateTime();
+
+        trail.TotalUpdate(curTime > dayLength);
         player.CheckFood();
         UpdateCamera();
         foreach (Transform enemy in enemies)
@@ -70,6 +53,7 @@ public class Main : MonoBehaviour {
             trail.followers[index].GetComponent<Follower>().FlipOut();
             trail.followers.RemoveAt(index);
         }
+
     }
 
     void UpdateCamera()
@@ -81,6 +65,67 @@ public class Main : MonoBehaviour {
         cam.transform.position = Vector3.Lerp(cam.transform.position, pos, 0.05f);
     }
 
+    void UpdateTime()
+    {
+        // TODO: Change this with a variable thing once delat times get added elsewhere
+        curTime += Time.fixedDeltaTime;
+        float alpha = curTime / dayLength; //0.5f + 0.5f * Mathf.Cos(curTime);
+        if (alpha > 1)
+        {
+            alpha = 1f;
+        }
+        shadow.color = new Color(1, 1, 1, alpha);
+    }
 
+    void GoToNextDay()
+    {
+        curTime = 0;
+        foreach (Transform enemy in enemies)
+        {
+            Destroy(enemy.gameObject);
+        }
+        foreach (Transform food in foods)
+        {
+            Destroy(food.gameObject);
+        }
+        enemies.Clear();
+        foods.Clear();
 
+        for (int i = 0; i < foodPrefabs.Length; i++)
+        {
+            for (int j = 0; j < 5; j++)
+            {
+                Vector2 pos;
+                do
+                {
+                    pos = Random.insideUnitCircle;
+                }
+                while (pos.sqrMagnitude < 0.6f);
+                Transform prefab = foodPrefabs[i];
+                float dist = prefab.GetComponent<Food>().distance;
+                Vector3 pos3d = dist * new Vector3(pos.x, 0, pos.y);
+                Transform newFood = (Transform)Instantiate(prefab, pos3d, Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up));
+                foods.Add(newFood);
+            }
+        }
+
+        for (int i = 0; i < 6; i++)
+        {
+            Vector2 pos;
+            do
+            {
+                pos = Random.insideUnitCircle;
+            }
+            while (pos.sqrMagnitude < 0.3f);
+            Vector3 pos3d = 40 * new Vector3(pos.x, 0, pos.y);
+
+            Transform enemy = (Transform)Instantiate(enemyPrefab, pos3d, Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up));
+            Charger c = enemy.GetComponent<Charger>();
+            c.start = enemy.transform.position;
+            enemies.Add(enemy);
+        }
+
+        trail.SetLayer("AntBody");
+        trail.GrowUp();
+    }
 }

@@ -75,6 +75,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 486042}
   - 54: {fileID: 5485236}
+  - 114: {fileID: 11433254}
   m_Layer: 0
   m_Name: Cookie Prefab
   m_TagString: Food
@@ -960,6 +961,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &11433254
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f27451d0bb2dc824db62d165f2911228, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ants: 5
+  distance: 40
 --- !u!135 &13593912
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -978,7 +992,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: ants
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: distance
+      value: 40
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 124324}
